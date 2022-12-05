@@ -107,6 +107,20 @@
             ],
             "scripts": []
           }
+        },
+        "deploy-firebase": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "aes-test:build:production",
+            "firebaseProject": "employee-product-management",
+            "firebaseHostingSite": "employee-product-management"
+          }
         }
       }
     }

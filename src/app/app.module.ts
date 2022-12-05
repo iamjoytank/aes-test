@@ -9,6 +9,11 @@ import { MainLayoutComponent } from './shared/components/main-layout/main-layout
 import { HeaderComponent } from './shared/components/header/header.component';
 import { LoadingComponent } from './shared/components/loading/loading.component';
 import { SpinnerService } from './core/services/spinner.service';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { provideDatabase,getDatabase } from '@angular/fire/database';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 
 const COMPONENTS = [
   AppComponent,
@@ -23,7 +28,11 @@ const COMPONENTS = [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    NgbModule
+    NgbModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideDatabase(() => getDatabase()),
+    provideFirestore(() => getFirestore())
   ],
   providers: [SpinnerService],
   bootstrap: [AppComponent]

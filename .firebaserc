@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "employee-product-management": {
+      "hosting": {
+        "aes-test": [
+          "employee-product-management"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "employee-product-management"
+  }
+}
