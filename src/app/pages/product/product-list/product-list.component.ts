@@ -55,7 +55,7 @@ export class ProductListComponent implements OnInit {
 
   onPageChange($event: number): void {
     this.page = $event;
-    this.loadData();
+    this.loadData({ next: this.dataList['rows'][this.dataList['rows'].length - 1] });
   }
 
   addEdit(item) {
@@ -88,7 +88,7 @@ export class ProductListComponent implements OnInit {
       (result) => {
         this.delete(item);
       },
-      (dismiss) => {}
+      (dismiss) => { }
     );
   }
 

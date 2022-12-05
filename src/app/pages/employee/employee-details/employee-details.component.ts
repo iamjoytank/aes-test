@@ -63,6 +63,7 @@ export class EmployeeDetailsComponent implements OnInit {
 
   reset() {
     this.dataForm.reset();
+    this.form['role'].setValue('employee');
     this.modelData = null;
   }
 

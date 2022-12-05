@@ -8,6 +8,10 @@ import {
 	deleteDoc,
 	doc,
 	updateDoc,
+	limit,
+	orderBy,
+	query,
+	startAfter
 } from '@firebase/firestore';
 import { Firestore, collectionData, docData } from '@angular/fire/firestore';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -23,16 +27,22 @@ export class ApiService {
 
 
 	get(params, collectionString) {
-		let ref = collection(this.fireStore, collectionString);
-		return collectionData(ref, { idField: 'id' });
+		if (params.limit && params.next) {
+			return collectionData(query(collection(this.fireStore, collectionString), orderBy('createdAt', 'desc'), limit(params.limit), startAfter(params.next)))
+		}
+		return collectionData(query(collection(this.fireStore, collectionString), orderBy('createdAt', 'desc'), limit(params.limit)))
 	}
+
 	getById(collectionString) {
 		let ref = doc(this.fireStore, `${collectionString}`);
 		return docData(ref);
 	}
+
 	async post(payload: Employee, collectionString) {
 		const ref = collection(this.fireStore, collectionString);
-		return await addDoc(ref, payload);
+		return addDoc(ref, payload).then((docRef) => {
+			updateDoc(docRef, { createdAt: new Date() });
+		});
 	}
 	update(payload, collectionString) {
 		const bookDocRef = doc(this.fireStore, `${collectionString}/${payload.id}`);
