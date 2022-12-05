@@ -2,7 +2,7 @@
   "targets": {
     "employee-product-management": {
       "hosting": {
-        "aes-test": [
+        "employee-product-management": [
           "employee-product-management"
         ]
       }

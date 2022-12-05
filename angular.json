@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "aes-test": {
+    "employee-product-management": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -24,7 +24,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/aes-test",
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -76,10 +76,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "aes-test:build:production"
+              "browserTarget": "employee-product-management:build:production"
             },
             "development": {
-              "browserTarget": "aes-test:build:development"
+              "browserTarget": "employee-product-management:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -87,7 +87,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "aes-test:build"
+            "browserTarget": "employee-product-management:build"
           }
         },
         "test": {
@@ -109,15 +109,15 @@
           }
         },
         "deploy-firebase": {
-          "builder": "@angular/fire:deploy",
-          "options": {}
-        },
+					"builder": "@angular/fire:deploy",
+					"options": {}
+				},
         "deploy": {
           "builder": "@angular/fire:deploy",
           "options": {
             "prerender": false,
             "ssr": false,
-            "browserTarget": "aes-test:build:production",
+            "browserTarget": "employee-product-management:build:production",
             "firebaseProject": "employee-product-management",
             "firebaseHostingSite": "employee-product-management"
           }
@@ -125,5 +125,5 @@
       }
     }
   },
-  "defaultProject": "aes-test"
+  "defaultProject": "employee-product-management"
 }
