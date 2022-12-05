@@ -1,0 +1,15 @@
+.btn-primary,
+.btn-primary:active,
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: $primary !important;
+  border-color: $primary !important;
+}
+
+.btn-outline-primary,
+.btn-outline-primary:active,
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+  color: $primary !important;
+  border-color: $primary !important;
+}

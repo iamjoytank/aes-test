@@ -2,35 +2,40 @@
 	<div class="container-fluid">
 		<h1 class="navbar-brand mb-0 text-white fw-normal">Navbar</h1>
 
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" aria-controls="navbarNavDropdown"
-			aria-expanded="false" aria-label="Toggle navigation" (click)="isMenuCollapsed = !isMenuCollapsed">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" [ngbCollapse]="isMenuCollapsed">
-			<ul class="navbar-nav ms-auto mob-menu align-items-center">
-				<li class="nav-item">
-					<a class="nav-link" (click)="isMenuCollapsed = true">
-						<i class="bi bi-envelope-fill"></i>
-						Employees
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" (click)="isMenuCollapsed = true">
-						<i class="bi bi-gear-fill"></i>
-						Products
-					</a>
-				</li>
-				<li class="nav-item" ngbDropdown display="dynamic" placement="bottom-end" (click)="isMenuCollapsed = true">
-					<a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown3" role="button">
-						<i class="bi bi-person-fill"></i>
-						Profile
-					 </a>
-					<div ngbDropdownMenu aria-labelledby="navbarDropdown3" class="dropdown-menu">
-						<a ngbDropdownItem href="#" (click)="$event.preventDefault()">View Profile</a>
-						<a ngbDropdownItem href="#" (click)="$event.preventDefault()">Logout</a>
-					</div>
-				</li>
-			</ul>
-		</div>
+
+		<ng-container *ngIf="userService.isLoggedIn()">
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" aria-controls="navbarNavDropdown"
+				aria-expanded="false" aria-label="Toggle navigation" (click)="isMenuCollapsed = !isMenuCollapsed">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" [ngbCollapse]="isMenuCollapsed">
+				<ul class="navbar-nav ms-auto mob-menu align-items-center">
+					<li class="nav-item" routerLink="/employee" *ngIf="userService.isAdmin()">
+						<a class="nav-link" (click)="isMenuCollapsed = true">
+							<i class="bi bi-envelope-fill"></i>
+							Employees
+						</a>
+					</li>
+					<li class="nav-item" routerLink="/product">
+						<a class="nav-link" (click)="isMenuCollapsed = true">
+							<i class="bi bi-gear-fill"></i>
+							Products
+						</a>
+					</li>
+					<li class="nav-item" ngbDropdown display="dynamic" placement="bottom-end"
+						(click)="isMenuCollapsed = true">
+						<a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown3" role="button">
+							<i class="bi bi-person-fill"></i>
+							Profile
+						</a>
+						<div ngbDropdownMenu aria-labelledby="navbarDropdown3" class="dropdown-menu">
+							<a ngbDropdownItem routerLink="/profile" (click)="$event.preventDefault()">View Profile</a>
+							<a ngbDropdownItem (click)="logout();$event.preventDefault()">Logout</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</ng-container>
+
 	</div>
 </nav>

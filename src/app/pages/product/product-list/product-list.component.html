@@ -1,0 +1,28 @@
+<div class="container-fluid page-padding">
+	<div class="d-flex justify-content-between my-4">
+		<h3 class="text-primary">List products</h3>
+		<button type="button" class="btn btn-primary ms-4" (click)="addEdit(null)" *ngIf="userService.isAdmin()">Add
+			product</button>
+	</div>
+
+	<div class="row justify-content-start">
+		<div class="card-group col-lg-3 col-md-4 co-sm-12" *ngFor="let item of dataList['rows']">
+			<div class="card">
+				<div class="card-body">
+					<h4>{{item?.name}}</h4>
+					<hr>
+					<p>{{item?.description}}</p>
+
+					<div class="d-flex justify-content-end mt-1">
+						<button type="button" class="btn btn-primary" (click)="addEdit(item)"
+							*ngIf="userService.isAdmin()">Edit
+						</button>
+						<button type="button" class="btn btn-outline-primary ms-2" (click)="openDeleteConfirmation(item)"
+							*ngIf="userService.isAdmin()">Delete
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

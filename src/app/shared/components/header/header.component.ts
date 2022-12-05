@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { UserService } from 'src/app/core';
 
 
 @Component({
@@ -9,9 +10,12 @@ import { Component, OnInit, Input } from '@angular/core';
 export class HeaderComponent implements OnInit {
 
   public isMenuCollapsed = true;
-  constructor() { }
+  constructor(public userService:UserService) { }
 
   ngOnInit(): void {
   }
 
+  logout(): void{
+    this.userService.signOut();
+  }
 }

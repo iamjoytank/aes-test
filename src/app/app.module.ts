@@ -14,12 +14,18 @@ import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { CoreModule } from './core';
+import { AlertModalComponent } from './shared/modals/alert-modal/alert-modal.component';
+import { AngularFireModule } from '@angular/fire/compat';
+import { ToastComponent } from './shared/components/toast/toast.component';
 
 const COMPONENTS = [
   AppComponent,
   HeaderComponent,
   MainLayoutComponent,
-  LoadingComponent
+  LoadingComponent,
+  AlertModalComponent,
+  ToastComponent
 ];
 
 @NgModule({
@@ -29,10 +35,12 @@ const COMPONENTS = [
     AppRoutingModule,
     BrowserAnimationsModule,
     NgbModule,
+    CoreModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => getFirestore()),
+    AngularFireModule.initializeApp(environment.firebase),
   ],
   providers: [SpinnerService],
   bootstrap: [AppComponent]

@@ -1,0 +1,73 @@
+<div class="container-fluid">
+	<div>
+		<h2 class="modal-title text-primary fw-bold" id="modal-basic-title">
+			<span *ngIf="!modelData">Create new employee</span>
+			<span *ngIf="modelData">Update employee</span>
+		</h2>
+	</div>
+
+	<div class="d-flex justify-content-center my-4"*ngIf="modelData">
+		<button type="button" class="btn btn-danger" (click)="openDeleteConfirmation()">Delete</button>
+	</div>
+
+	<form [formGroup]="dataForm">
+		<div class="row">
+			<div class="col-12">
+				<div class="form-group">
+					<label class="form-label text-primary">Email Id</label>
+					<input type="text" class="form-control" id="email" placeholder="Enter email id"
+						formControlName="email" />
+					<div class="text-left" *ngFor="let error of errorMessages.email">
+						<ng-container
+							*ngIf="form['email'].hasError(error.type) && (form['email'].dirty || form['email'].touched)">
+							<span class="text-danger">{{ error.message }}</span>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+			<div class="col-12">
+				<div class="form-group">
+					<label class="form-label text-primary">Name</label>
+					<input type="text" class="form-control" id="name" placeholder="Enter name" formControlName="name" />
+					<div class="text-left" *ngFor="let error of errorMessages.name">
+						<ng-container
+							*ngIf="form['name'].hasError(error.type) && (form['name'].dirty || form['name'].touched)">
+							<span class="text-danger">{{ error.message }}</span>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+			<div class="col-12">
+				<div class="form-group">
+					<label class="form-label text-primary">Company name</label>
+					<input type="text" class="form-control" id="company" placeholder="Enter company name"
+						formControlName="company" />
+					<div class="text-left" *ngFor="let error of errorMessages.company">
+						<ng-container
+							*ngIf="form['company'].hasError(error.type) && (form['company'].dirty || form['company'].touched)">
+							<span class="text-danger">{{ error.message }}</span>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+			<div class="col-12">
+				<div class="form-group">
+					<label class="form-label text-primary">Phone number</label>
+					<input type="number" class="form-control" id="name" placeholder="Enter phone number"
+						formControlName="mobileNumber" />
+					<div class="text-left" *ngFor="let error of errorMessages.mobileNumber">
+						<ng-container
+							*ngIf="form['mobileNumber'].hasError(error.type) && (form['mobileNumber'].dirty || form['mobileNumber'].touched)">
+							<span class="text-danger">{{ error.message }}</span>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<div class="d-flex justify-content-center my-4">
+		<button type="button" class="btn btn-outline-primary" (click)="reset()">Reset</button>
+		<button type="button" class="btn btn-primary ms-4" (click)="onSubmit()">Submit</button>
+	</div>
+</div>
