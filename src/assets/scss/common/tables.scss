@@ -1,0 +1,28 @@
+.table-responsive {
+	background: var(--bs-light);
+	box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+	border-radius: 12px;
+	padding: 20px;
+}
+.table-style {
+	background: var(--bs-light);
+	box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+	border-radius: 12px;
+	padding: 10px;
+}
+.table {
+	background: var(--bs-light);
+	th {
+		min-width: 145px;
+		font-weight: 500;
+		font-size: 18px;
+		color: var(--bs-primary) !important;
+	}
+	td {
+		color: var(--bs-primary) !important;
+		font-style: normal;
+		font-weight: 400;
+		font-size: 18px;
+		line-height: 21px;
+	}
+}
