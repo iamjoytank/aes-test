@@ -11,31 +11,20 @@ export class UserService {
   currentUser: User;
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
   public isAuthenticated = this.isAuthenticatedSubject.asObservable().pipe(distinctUntilChanged());
-  
+
   constructor(public router: Router, public ngZone: NgZone, private auth: Auth) {
-    authState(this.auth).subscribe((user:any) => {
+    authState(this.auth).subscribe((user: any) => {
+      console.log('user', user)
       this.currentUser = user;
       this.isAuthenticatedSubject.next(true);
     })
   }
-  oAuthProvider(provider) {
-    return signInWithPopup(this.auth,provider)
-      .then((res) => {
-        this.ngZone.run(() => {
-          this.router.navigate(['/']);
-        })
-      }).catch((error) => {
-        window.alert(error)
-      })
+  async oAuthProvider(provider) {
+    return await signInWithPopup(this.auth, provider)
   }
 
-  signInWithGoogle() {
-    return this.oAuthProvider(new GoogleAuthProvider())
-      .then(res => {
-        console.log('Successfully logged in!')
-      }).catch(error => {
-        console.log(error)
-      });
+  async signInWithGoogle() {
+    return await this.oAuthProvider(new GoogleAuthProvider())
   }
   signOut() {
     signOut(this.auth).then(() => {

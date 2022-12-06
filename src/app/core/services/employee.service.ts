@@ -16,7 +16,9 @@ export class EmployeeService {
   getById(id) {
     return this.api.getById(`user/${id}`);
   }
-
+  checkUser(payload) {
+    return this.api.checkEmailQuery(payload.email, `user`);
+  }
   create(payload) {
     return this.api.post(payload, 'user');
   }

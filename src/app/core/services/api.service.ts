@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 
 import {
-	CollectionReference,
-	DocumentData,
 	addDoc,
 	collection,
 	deleteDoc,
@@ -11,10 +9,9 @@ import {
 	limit,
 	orderBy,
 	query,
-	startAfter
+	startAfter, where
 } from '@firebase/firestore';
 import { Firestore, collectionData, docData } from '@angular/fire/firestore';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 import { Employee } from 'src/app/model/employee';
 
@@ -28,14 +25,18 @@ export class ApiService {
 
 	get(params, collectionString) {
 		if (params.limit && params.next) {
-			return collectionData(query(collection(this.fireStore, collectionString), orderBy('createdAt', 'desc'), limit(params.limit), startAfter(params.next)))
+			return collectionData(query(collection(this.fireStore, collectionString), orderBy('createdAt', 'desc'), limit(params.limit), startAfter(params.next)), { idField: 'id' })
 		}
-		return collectionData(query(collection(this.fireStore, collectionString), orderBy('createdAt', 'desc'), limit(params.limit)))
+		return collectionData(query(collection(this.fireStore, collectionString), orderBy('createdAt', 'desc'), limit(params.limit)),{idField:'id'})
 	}
 
 	getById(collectionString) {
 		let ref = doc(this.fireStore, `${collectionString}`);
 		return docData(ref);
+	}
+
+	checkEmailQuery(email,collectionString) {
+		return collectionData(query(collection(this.fireStore, collectionString), where('email', '==', email)));
 	}
 
 	async post(payload: Employee, collectionString) {

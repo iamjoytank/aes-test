@@ -13,9 +13,6 @@ import { ToastService } from 'src/app/core/services/toast.service';
 })
 export class EmployeeListComponent implements OnInit {
 
-  collectionSize: number = 100;
-  page: number = 1;
-  pageSize: number = 2;
   dataList: any = {
     rows: [],
     count: 1,
@@ -34,15 +31,12 @@ export class EmployeeListComponent implements OnInit {
 
   loadData(filters = {}): void {
     let params = {
-      start: (this.page - 1) * this.pageSize,
-      limit: this.pageSize,
       ...filters,
     };
     this.spinnerService.start();
     this.employeeService.getList(params).subscribe({
       next: (result) => {
         this.dataList['rows'] = result;
-        console.log(result)
         this.spinnerService.stop();
       },
       error: (error) => {
@@ -51,12 +45,6 @@ export class EmployeeListComponent implements OnInit {
       },
     });
   }
-
-  onPageChange($event: number): void {
-    this.page = $event;
-    this.loadData({ next: this.dataList['rows'][this.dataList['rows'].length - 1] });
-  }
-
 
   edit(data) {
     this.editData = data;

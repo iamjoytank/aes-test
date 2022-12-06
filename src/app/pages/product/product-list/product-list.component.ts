@@ -15,9 +15,6 @@ import { ProductDetailsComponent } from '../product-details/product-details.comp
 })
 export class ProductListComponent implements OnInit {
 
-  collectionSize: number = 0;
-  page: number = 1;
-  pageSize: number = 2;
   dataList: any = {
     rows: [],
     count: 1,
@@ -36,8 +33,6 @@ export class ProductListComponent implements OnInit {
 
   loadData(filters = {}): void {
     let params = {
-      start: (this.page - 1) * this.pageSize,
-      limit: this.pageSize,
       ...filters,
     };
     this.spinnerService.start();
@@ -53,10 +48,6 @@ export class ProductListComponent implements OnInit {
     });
   }
 
-  onPageChange($event: number): void {
-    this.page = $event;
-    this.loadData({ next: this.dataList['rows'][this.dataList['rows'].length - 1] });
-  }
 
   addEdit(item) {
     const modalRef = this.modalService.open(ProductDetailsComponent, {
