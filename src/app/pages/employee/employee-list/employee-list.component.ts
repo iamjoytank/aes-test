@@ -15,7 +15,7 @@ export class EmployeeListComponent implements OnInit {
 
   collectionSize: number = 0;
   page: number = 1;
-  currentPage:number=1
+  currentPage: number = 1
   pageSize: number = 2;
   dataList: any = {
     rows: [],
@@ -30,7 +30,7 @@ export class EmployeeListComponent implements OnInit {
     private employeeService: EmployeeService, private toastService: ToastService
   ) { }
 
-  async ngOnInit()   {
+  async ngOnInit() {
     this.loadData();
     this.collectionSize = await this.employeeService.getCount();
   }
@@ -57,6 +57,7 @@ export class EmployeeListComponent implements OnInit {
     this.employeeService.search(this.searchTerm).subscribe({
       next: (result) => {
         this.dataList['rows'] = result;
+        this.currentPage = this.page = 1
       },
       error: (error) => {
         this.spinnerService.stop();
