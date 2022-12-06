@@ -4,7 +4,7 @@ import { AuthGuard } from './core/services/auth-guard.service';
 import { MainLayoutComponent } from './shared/components/main-layout/main-layout.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'employee', pathMatch: 'full' },
+  { path: '', redirectTo: 'product', pathMatch: 'full' },
 
   {
     path: '',

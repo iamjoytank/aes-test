@@ -14,9 +14,11 @@ export class UserService {
 
   constructor(public router: Router, public ngZone: NgZone, private auth: Auth) {
     authState(this.auth).subscribe((user: any) => {
-      console.log('user', user)
       this.currentUser = user;
       this.isAuthenticatedSubject.next(true);
+      if (this.isLoggedIn() && this.router.url.includes('login')) {
+        this.router.navigate(['/']);
+      }
     })
   }
   async oAuthProvider(provider) {

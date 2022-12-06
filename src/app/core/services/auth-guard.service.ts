@@ -12,14 +12,17 @@ export class AuthGuard implements CanLoad {
 		return this.userService.isAuthenticated.pipe(
 			take(1),
 			tap((allowed) => {
-				console.log('isLogged in', this.userService.isLoggedIn())
 				if (!allowed) {
 					let returnUrl = segemets[0].path;
 					this.router.navigate(['/login'], { queryParams: { returnUrl } });
 					return false;
 				} else {
 					if (this.userService.isLoggedIn()) {
-						return true;
+						if (!this.userService.isAdmin() && segemets[0].path === 'employee'){
+							this.router.navigate(['/product']);
+							return false;
+						}
+						return true
 					} else {
 						this.router.navigate(['/login']);
 						return false;
