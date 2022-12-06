@@ -16,7 +16,7 @@
 				<div class="form-group">
 					<label class="form-label text-primary">Email Id</label>
 					<input type="text" class="form-control" id="email" placeholder="Enter email id"
-						formControlName="email" />
+						formControlName="email" [readOnly]="form['id'].value"/>
 					<div class="text-left" *ngFor="let error of errorMessages.email">
 						<ng-container
 							*ngIf="form['email'].hasError(error.type) && (form['email'].dirty || form['email'].touched)">
