@@ -9,7 +9,7 @@ import {
 	limit,
 	orderBy,
 	query,
-	startAfter, where
+	startAfter,endBefore, where, getCountFromServer
 } from '@firebase/firestore';
 import { Firestore, collectionData, docData } from '@angular/fire/firestore';
 
@@ -24,18 +24,33 @@ export class ApiService {
 
 
 	get(params, collectionString) {
+		let query_ = query(collection(this.fireStore, collectionString), orderBy('createdAt', 'desc'), limit(params.limit));
 		if (params.limit && params.next) {
-			return collectionData(query(collection(this.fireStore, collectionString), orderBy('createdAt', 'desc'), limit(params.limit), startAfter(params.next)), { idField: 'id' })
+			query_ = query(collection(this.fireStore, collectionString), orderBy('createdAt', 'desc'), limit(params.limit), startAfter(params.next.createdAt))
 		}
-		return collectionData(query(collection(this.fireStore, collectionString), orderBy('createdAt', 'desc'), limit(params.limit)),{idField:'id'})
+		else if (params.limit && params.last) {
+			query_ = query(collection(this.fireStore, collectionString), orderBy('createdAt', 'desc'), limit(params.limit), endBefore(params.last.createdAt))
+		}
+		return collectionData(query_, { idField: 'id' })
+	}
+
+	async getCount(collectionString) {
+		let query_ = query(collection(this.fireStore, collectionString), orderBy('createdAt', 'desc'))
+		return await (await getCountFromServer(query_)).data().count;
 	}
 
 	getById(collectionString) {
 		let ref = doc(this.fireStore, `${collectionString}`);
 		return docData(ref);
 	}
+	
+	searchByName(term, collectionString) {
+		return collectionData(query(collection(this.fireStore, collectionString),
+			where('name', '>=', term), where('name', '<=', term + '~'),
+		));
+	}
 
-	checkEmailQuery(email,collectionString) {
+	checkEmailQuery(email, collectionString) {
 		return collectionData(query(collection(this.fireStore, collectionString), where('email', '==', email)));
 	}
 

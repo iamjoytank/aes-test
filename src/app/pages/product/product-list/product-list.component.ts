@@ -33,6 +33,7 @@ export class ProductListComponent implements OnInit {
 
   loadData(filters = {}): void {
     let params = {
+      limit:100,
       ...filters,
     };
     this.spinnerService.start();

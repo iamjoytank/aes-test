@@ -10,9 +10,14 @@ export class EmployeeService {
   constructor(private api: ApiService) { }
 
   getList(params) {
-    return this.api.get(params, 'user') as Observable<Employee[]>;
+    return this.api.get(params, 'user');
   }
-
+  search(params) {
+    return this.api.searchByName(params, 'user') as Observable<Employee[]>;
+  }
+  getCount() {
+    return this.api.getCount('user');
+  }
   getById(id) {
     return this.api.getById(`user/${id}`);
   }

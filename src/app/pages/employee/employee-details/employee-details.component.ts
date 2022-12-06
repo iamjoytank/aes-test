@@ -39,9 +39,7 @@ export class EmployeeDetailsComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['modelData'] && this.modelData) {
-      console.log(changes['modelData'])
       this.modelData = changes['modelData'].currentValue;
-      console.log(this.modelData)
       this.getById();
     }
   }
@@ -50,7 +48,6 @@ export class EmployeeDetailsComponent implements OnInit {
     this.spinnerService.start();
     this.employeeService.getById(this.modelData.id).subscribe({
       next: (response) => {
-        console.log(response)
         this.dataForm.patchValue(response);
         this.form['id'].setValue(this.modelData.id)
         this.spinnerService.stop();
@@ -82,10 +79,11 @@ export class EmployeeDetailsComponent implements OnInit {
         next: (result) => {
           if (result && result.length > 0) {
             this.spinnerService.stop();
-            this.toastService.error('EMployee with email already exist');
+            this.toastService.error('Employee with email already exist');
           }
           else {
-            this.create()
+            this.dataForm.reset()
+            this.create(this.dataForm.getRawValue())
           }
         }, error: (error) => {
           this.spinnerService.stop();
@@ -96,8 +94,8 @@ export class EmployeeDetailsComponent implements OnInit {
     else this.update();
   }
 
-  create(): void {
-    this.employeeService.create(this.dataForm.getRawValue()).then((response) => {
+  create(payload): void {
+    this.employeeService.create(payload).then((response) => {
       this.spinnerService.stop();
       this.reset();
       this.toastService.success('Employee added');
